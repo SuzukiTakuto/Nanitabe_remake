@@ -15,20 +15,20 @@ const index = () => {
       Alert.alert("未入力", "1円以上の金額を入力してください");
       return;
     }
-    router.push("/location");
+    router.push("/(location)");
   };
 
   return (
     <SafeAreaView className="h-full bg-primary">
       <View className="mx-14 justify-center h-full">
         <View className="mb-2">
-          <Text className="text-center font-mpregular text-xl mb-10">
-            いくらくらいのお店?{priceSetting}
+          <Text className="text-center font-mpregular text-2xl mb-10">
+            いくらくらいのお店?
           </Text>
           <InputField
             placeholder="1000"
             keyboardType="numeric"
-            handleChange={(e) => setPriceSetting(e)}
+            handleChange={(e) => setPriceSetting(Number(e))}
           />
         </View>
 
@@ -36,7 +36,7 @@ const index = () => {
           <Button
             title="決定"
             containerStyle="w-[80px] py-1 rounded-2xl"
-            textStyle="text-center"
+            textStyle=""
             onPress={() => {
               onPress();
             }}

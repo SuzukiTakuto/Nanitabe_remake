@@ -11,6 +11,7 @@ module.exports = {
         mplus: ["M-PLUS-1", "sans-serif"],
         mpbold: ["MPLUS1-Bold", "sans-serif"],
         mpregular: ["MPLUS1-Regular", "sans-serif"],
+        mpmeduium: ["MPLUS1-Medium", "sans-serif"],
         yatra: ["Yatra-One", "sans-serif"],
       },
     },
