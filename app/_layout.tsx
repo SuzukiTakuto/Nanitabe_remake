@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { SplashScreen, Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import "@/global.css";
+import { RecoilRoot } from "recoil";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -28,10 +29,12 @@ export default function RootLayout() {
     return null;
   }
   return (
-    <Stack>
-      <Stack.Screen name="(price)" options={{ headerShown: false }} />
-      <Stack.Screen name="(location)" options={{ headerShown: false }} />
-      <Stack.Screen name="(map)" options={{ headerShown: false }} />
-    </Stack>
+    <RecoilRoot>
+      <Stack>
+        <Stack.Screen name="(price)" options={{ headerShown: false }} />
+        <Stack.Screen name="(location)" options={{ headerShown: false }} />
+        <Stack.Screen name="(map)" options={{ headerShown: false }} />
+      </Stack>
+    </RecoilRoot>
   );
 }

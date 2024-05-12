@@ -13,6 +13,7 @@ const Button = (props: Props) => {
   return (
     <TouchableOpacity
       className={`border-[1px] border-[#79747E] ${containerStyle}`}
+      onPress={onPress}
     >
       <Text className={`font-mpregular text-[#6750A4] ${textStyle}`}>
         {title}

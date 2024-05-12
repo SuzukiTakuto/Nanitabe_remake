@@ -4,6 +4,7 @@ import React from "react";
 type Props = {
   placeholder: string;
   keyboardType: "default" | "numeric" | "email-address" | "phone-pad";
+  handleChange: (text: number) => void;
 };
 
 const InputField = (props: Props) => {
@@ -16,6 +17,7 @@ const InputField = (props: Props) => {
           placeholder={placeholder}
           placeholderTextColor={"#6750A4"}
           keyboardType={keyboardType}
+          onChangeText={(priceText) => props.handleChange(Number(priceText))}
         />
       </View>
     </View>
