@@ -29,7 +29,9 @@ export default function RootLayout() {
   }
   return (
     <Stack>
-      <Stack.Screen name="price" options={{ headerShown: false }} />
+      <Stack.Screen name="(price)" options={{ headerShown: false }} />
+      <Stack.Screen name="(location)" options={{ headerShown: false }} />
+      <Stack.Screen name="(map)" options={{ headerShown: false }} />
     </Stack>
   );
 }
