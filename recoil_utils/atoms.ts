@@ -1,3 +1,4 @@
+import { HotpepperDataType } from "@/type";
 import { atom } from "recoil";
 
 export const priceSettingState = atom({
@@ -13,4 +14,9 @@ export const locationState = atom<"another" | "now">({
 export const stationNameState = atom({
   key: "stationName",
   default: "",
+});
+
+export const hotpepperDataState = atom<HotpepperDataType[]>({
+  key: "hotpepperData",
+  default: [],
 });

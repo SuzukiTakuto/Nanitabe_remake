@@ -8,13 +8,16 @@ import {
   priceSettingState,
   locationState,
   stationNameState,
+  hotpepperDataState,
 } from "@/recoil_utils/atoms";
 import { router } from "expo-router";
+import { fetchStationSurroundingData } from "@/lib/hotpepper";
 
 const index = () => {
   const [priceSetting, setPriceSetting] = useRecoilState(priceSettingState);
   const [location, setLocation] = useRecoilState(locationState);
   const [stationName, setStationName] = useRecoilState(stationNameState);
+  const [hotpepperData, setHotpepperData] = useRecoilState(hotpepperDataState);
 
   const nowPlace = () => {
     setLocation("now");
@@ -24,11 +27,15 @@ const index = () => {
     setLocation("another");
   };
 
-  const decision = () => {
+  const decision = async () => {
     if (location === "another" && stationName === "") {
       Alert.alert("未入力", "駅名を入力してください");
       return;
     }
+
+    const data = await fetchStationSurroundingData(priceSetting, stationName);
+    setHotpepperData(data);
+
     router.push("/(map)");
   };
 
