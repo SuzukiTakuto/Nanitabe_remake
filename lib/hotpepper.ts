@@ -53,7 +53,7 @@ export const fetchStationSurroundingData = async (
 
       return maxPrice <= price;
     });
-    console.log(shops);
+
     return shops;
   } catch (error) {
     return error;
