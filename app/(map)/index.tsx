@@ -3,12 +3,13 @@ import React, { useEffect, useState } from "react";
 import MapView, { Marker, Region } from "react-native-maps";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRecoilState } from "recoil";
-import { hotpepperDataState } from "@/recoil_utils/atoms";
+import { hotpepperDataState, nowLocationState } from "@/recoil_utils/atoms";
 import { HotpepperDataType } from "@/type";
 import Shop from "@/components/Shop";
 
 const index = () => {
   const [hotpepperData, setHotpepperData] = useRecoilState(hotpepperDataState);
+  const [nowLocation, setNowLocation] = useRecoilState(nowLocationState);
   const [shop, setShop] = useState<HotpepperDataType>();
 
   useEffect(() => {
@@ -29,6 +30,12 @@ const index = () => {
           longitudeDelta: 0.02,
         }}
       >
+        <Marker
+          coordinate={{
+            latitude: nowLocation.coords.latitude,
+            longitude: nowLocation.coords.longitude,
+          }}
+        />
         {shop !== undefined && (
           <Marker
             coordinate={{

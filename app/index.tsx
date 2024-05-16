@@ -6,9 +6,11 @@ import InputField from "@/components/InputField";
 import { useRecoilState } from "recoil";
 import { priceSettingState } from "@/recoil_utils/atoms";
 import { router } from "expo-router";
+import { useLocation } from "@/hooks/useLocation";
 
 const index = () => {
   const [priceSetting, setPriceSetting] = useRecoilState(priceSettingState);
+  const location = useLocation();
 
   const onPress = () => {
     if (priceSetting === 0) {
