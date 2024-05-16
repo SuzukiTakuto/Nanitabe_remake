@@ -9,32 +9,49 @@ import {
   locationState,
   stationNameState,
   hotpepperDataState,
+  nowLocationState,
 } from "@/recoil_utils/atoms";
 import { router } from "expo-router";
-import { fetchStationSurroundingData } from "@/lib/hotpepper";
+import {
+  fetchStationSurroundingData,
+  fetchSurroundingData,
+} from "@/lib/hotpepper";
 
 const index = () => {
   const [priceSetting, setPriceSetting] = useRecoilState(priceSettingState);
   const [location, setLocation] = useRecoilState(locationState);
   const [stationName, setStationName] = useRecoilState(stationNameState);
   const [hotpepperData, setHotpepperData] = useRecoilState(hotpepperDataState);
+  const [nowLocation, setNowLocation] = useRecoilState(nowLocationState);
 
+  // 「別なところ」が押された時にステート変更
   const nowPlace = () => {
     setLocation("now");
   };
 
+  // 「今いるところ」が押された時にステート変更
   const anotherPlace = () => {
     setLocation("another");
   };
 
+  // 決定ボタンが押された時の処理
   const decision = async () => {
     if (location === "another" && stationName === "") {
       Alert.alert("未入力", "駅名を入力してください");
       return;
     }
 
-    const data = await fetchStationSurroundingData(priceSetting, stationName);
-    setHotpepperData(data);
+    if (location === "another") {
+      const data = await fetchStationSurroundingData(priceSetting, stationName);
+      setHotpepperData(data);
+    } else if (location === "now") {
+      const coords = {
+        latitude: nowLocation.coords.latitude,
+        longitude: nowLocation.coords.longitude,
+      };
+      const data = await fetchSurroundingData(priceSetting, coords);
+      setHotpepperData(data);
+    }
 
     router.push("/(map)");
   };
