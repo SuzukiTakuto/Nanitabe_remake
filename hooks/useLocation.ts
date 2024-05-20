@@ -21,7 +21,7 @@ export const useLocation = () => {
         {
           accuracy: Location.Accuracy.High,
           timeInterval: 500, // 更新間隔（ミリ秒）
-          distanceInterval: 5, // 更新するための移動距離（メートル）
+          distanceInterval: 2, // 更新するための移動距離（メートル）
         },
         (newLocation) => {
           setLocation(newLocation);

@@ -1,9 +1,6 @@
 //import { HOTPEPPER_API_KEY } from "@env";
 import { XMLParser } from "fast-xml-parser";
 
-const env = process.env;
-const hotpepperAPIKey = env.HOTPEPPER_API_KEY;
-
 export const fetchSurroundingData = async (
   price: number,
   coords: {
