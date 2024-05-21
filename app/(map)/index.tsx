@@ -8,8 +8,10 @@ import { hotpepperDataState, nowLocationState } from "@/recoil_utils/atoms";
 import { Coords, HotpepperDataType } from "@/type";
 import Shop from "@/components/Shop";
 import { fetchCoordinatesData } from "@/hooks/useDirection";
+import images from "@/lib/images";
 
 const index = () => {
+  console.log(images);
   const [hotpepperData, setHotpepperData] = useRecoilState(hotpepperDataState);
   const [nowLocation, setNowLocation] = useRecoilState(nowLocationState);
   const [shop, setShop] = useState<HotpepperDataType>();
@@ -59,6 +61,7 @@ const index = () => {
             latitude: nowLocation.coords.latitude,
             longitude: nowLocation.coords.longitude,
           }}
+          image={images.gps}
         />
         {shop !== undefined && directionsCoords.length > 0 && (
           <View>
