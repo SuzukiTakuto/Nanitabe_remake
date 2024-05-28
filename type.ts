@@ -62,3 +62,14 @@ export type Coords = {
   latitude: number;
   longitude: number;
 };
+
+export type StationData = {
+  line: string;
+  name: string;
+  next: string | null;
+  postal: number;
+  prefecture: string;
+  prev: string | null;
+  x: number;
+  y: number;
+};

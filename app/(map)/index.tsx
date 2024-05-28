@@ -3,17 +3,21 @@ import React, { useEffect, useState } from "react";
 import MapView, { Marker, Region, Polyline } from "react-native-maps";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRecoilState } from "recoil";
-import { hotpepperDataState, nowLocationState } from "@/recoil_utils/atoms";
+import {
+  hotpepperDataState,
+  nowLocationState,
+  startCoordsState,
+} from "@/recoil_utils/atoms";
 
 import { Coords, HotpepperDataType } from "@/type";
 import Shop from "@/components/Shop";
-import { fetchCoordinatesData } from "@/hooks/useDirection";
+import { fetchCoordinatesData } from "@/lib/direction";
 import images from "@/lib/images";
 
 const index = () => {
-  console.log(images);
   const [hotpepperData, setHotpepperData] = useRecoilState(hotpepperDataState);
   const [nowLocation, setNowLocation] = useRecoilState(nowLocationState);
+  const [startCoords, setStartCoords] = useRecoilState(startCoordsState);
   const [shop, setShop] = useState<HotpepperDataType>();
   const [directionsCoords, setDirectionsCoords] = useState<Coords[]>([]);
 
@@ -28,13 +32,10 @@ const index = () => {
     const fetchDirection = async () => {
       if (shop) {
         try {
-          const coords: Coords[] = (await fetchCoordinatesData(
-            nowLocation.coords,
-            {
-              longitude: shop?.lng,
-              latitude: shop?.lat,
-            }
-          )) as Coords[];
+          const coords: Coords[] = (await fetchCoordinatesData(startCoords, {
+            longitude: shop?.lng,
+            latitude: shop?.lat,
+          })) as Coords[];
           setDirectionsCoords(coords);
         } catch (error) {
           Alert.alert("エラー", "経路情報の取得に失敗しました");
