@@ -8,5 +8,10 @@ export const fetchStation = async (stationName: string) => {
 
   const stations: StationData[] = JSON.parse(data).response.station;
 
-  return stations;
+  const uniqueStations = stations.filter(
+    (station, index, self) =>
+      index === self.findIndex((s) => s.prefecture === station.prefecture)
+  );
+
+  return uniqueStations;
 };

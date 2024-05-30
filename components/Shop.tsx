@@ -14,7 +14,7 @@ const Shop = (props: HotpepperDataType) => {
     });
   };
   return (
-    <View className="w-[360px] bg-primary">
+    <View className="w-[360px] bg-primary rounded-2xl">
       <View className="flex-row justify-around items-center p-4">
         <View>
           <Image

@@ -19,6 +19,7 @@ import {
 } from "@/lib/hotpepper";
 import { fetchStation } from "@/lib/express";
 import { StationData } from "@/type";
+import DuplicateStationSelectionModal from "@/components/DuplicateStationSelectionModal";
 
 const index = () => {
   const [priceSetting, setPriceSetting] = useRecoilState(priceSettingState);
@@ -75,12 +76,14 @@ const index = () => {
   // 同名の駅が複数ある場合の処理
   const decisionTargetStation = async (index: number) => {
     const targetStation = candidateStations[index];
-    setStartCoords({
+    const coords = {
       latitude: targetStation.y,
       longitude: targetStation.x,
-    });
+    };
+    setStartCoords(coords);
 
-    await getStationSurroundingShops();
+    const data = await fetchSurroundingData(priceSetting, coords);
+    setHotpepperData(data);
 
     router.push("/(map)");
   };
@@ -164,6 +167,22 @@ const index = () => {
           </View>
         </View>
       </SafeAreaView>
+      {candidateStations.length > 1 && (
+        <View
+          style={{
+            position: "absolute",
+            zIndex: 20,
+            left: "50%",
+            top: "50%",
+            transform: [{ translateX: -150 }, { translateY: -50 }],
+          }}
+        >
+          <DuplicateStationSelectionModal
+            stations={candidateStations}
+            select={decisionTargetStation}
+          />
+        </View>
+      )}
     </View>
   );
 };

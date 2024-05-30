@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useRecoilState } from "recoil";
 import {
   hotpepperDataState,
+  locationState,
   nowLocationState,
   startCoordsState,
 } from "@/recoil_utils/atoms";
@@ -18,6 +19,7 @@ const index = () => {
   const [hotpepperData, setHotpepperData] = useRecoilState(hotpepperDataState);
   const [nowLocation, setNowLocation] = useRecoilState(nowLocationState);
   const [startCoords, setStartCoords] = useRecoilState(startCoordsState);
+  const [location, setLocation] = useRecoilState(locationState);
   const [shop, setShop] = useState<HotpepperDataType>();
   const [directionsCoords, setDirectionsCoords] = useState<Coords[]>([]);
 
@@ -74,17 +76,19 @@ const index = () => {
             />
             {directionsCoords.length > 0 && (
               <View>
-                <Polyline
-                  coordinates={[
-                    nowLocation.coords,
-                    {
-                      latitude: directionsCoords[0].latitude,
-                      longitude: directionsCoords[0].longitude,
-                    },
-                  ]}
-                  strokeColor="#4620AA"
-                  strokeWidth={6}
-                />
+                {location === "now" && (
+                  <Polyline
+                    coordinates={[
+                      nowLocation.coords,
+                      {
+                        latitude: directionsCoords[0].latitude,
+                        longitude: directionsCoords[0].longitude,
+                      },
+                    ]}
+                    strokeColor="#4620AA"
+                    strokeWidth={6}
+                  />
+                )}
                 <Polyline
                   coordinates={directionsCoords}
                   strokeColor="#4620AA"
@@ -104,7 +108,7 @@ const index = () => {
         )}
       </MapView>
       {shop !== undefined && (
-        <View className="absolute bottom-14 left-0 right-0 flex items-center">
+        <View className="absolute bottom-16 left-0 right-0 flex items-center">
           <Shop {...shop} />
         </View>
       )}
