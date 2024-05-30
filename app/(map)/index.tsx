@@ -1,7 +1,6 @@
-import { View, Text, Alert } from "react-native";
+import { View, Text, Alert, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import MapView, { Marker, Region, Polyline } from "react-native-maps";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useRecoilState } from "recoil";
 import {
   hotpepperDataState,
@@ -112,6 +111,10 @@ const index = () => {
           <Shop {...shop} />
         </View>
       )}
+
+      <View className="absolute bottom-3 right-0 left-0 flex items-center">
+        <Image source={images.hotpepperLog} />
+      </View>
     </View>
   );
 };
