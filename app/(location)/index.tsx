@@ -33,14 +33,10 @@ const index = () => {
     useState<boolean>(false); //駅名が重複しているかどうか
 
   // 「別なところ」が押された時にステート変更
-  const nowPlace = () => {
-    setLocation("now");
-  };
+  const nowPlace = () => setLocation("now");
 
   // 「今いるところ」が押された時にステート変更
-  const anotherPlace = () => {
-    setLocation("another");
-  };
+  const anotherPlace = () => setLocation("another");
 
   // 決定ボタンが押された時の処理
   const decision = async () => {
@@ -58,10 +54,11 @@ const index = () => {
       } else if (stationsData.length > 1) {
         setCandidateStations(stationsData);
         return;
+      } else {
+        await getStationSurroundingShops();
       }
-
-      await getStationSurroundingShops();
     } else if (location === "now") {
+      // 現在地が選択された場合
       const coords = {
         latitude: nowLocation.coords.latitude,
         longitude: nowLocation.coords.longitude,
