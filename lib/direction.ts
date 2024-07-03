@@ -3,7 +3,7 @@ import { EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN } from "@env";
 import { XMLParser } from "fast-xml-parser";
 
 const env = process.env;
-const mapboxAccessToken = env.MAPBOX_ACCESS_TOKEN;
+const mapboxAccessToken = env.EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 export const fetchCoordinatesData = async (
   nowCoords: {

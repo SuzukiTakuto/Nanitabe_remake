@@ -47,7 +47,13 @@ const index = () => {
 
     if (location === "another") {
       // 駅名が選択された場合
-      const stationsData = await fetchStation(stationName);
+
+      // 「〇〇駅」と入力された場合に「駅」を削除
+      const parsedStationName = stationName.endsWith("駅")
+        ? stationName.split("駅")[0]
+        : stationName;
+      const stationsData = await fetchStation(parsedStationName);
+
       if (stationsData.length === 0) {
         Alert.alert("エラー", "駅名が見つかりませんでした");
         return;
@@ -55,7 +61,12 @@ const index = () => {
         setCandidateStations(stationsData);
         return;
       } else {
-        await getStationSurroundingShops();
+        const coords = {
+          latitude: stationsData[0].y,
+          longitude: stationsData[0].x,
+        };
+        setStartCoords(coords);
+        await getStationSurroundingShops(stationsData);
       }
     } else if (location === "now") {
       // 現在地が選択された場合
@@ -85,11 +96,11 @@ const index = () => {
     router.push("/(map)");
   };
 
-  const getStationSurroundingShops = async () => {
-    const shopsData = await fetchStationSurroundingData(
-      priceSetting,
-      stationName
-    );
+  const getStationSurroundingShops = async (stationsData: StationData[]) => {
+    const shopsData = await fetchSurroundingData(priceSetting, {
+      latitude: stationsData[0].y,
+      longitude: stationsData[0].x,
+    });
     setHotpepperData(shopsData);
   };
 
