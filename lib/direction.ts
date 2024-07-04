@@ -1,9 +1,5 @@
 import { Coords, RoutesObject } from "@/type";
 import { EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN } from "@env";
-import { XMLParser } from "fast-xml-parser";
-
-const env = process.env;
-const mapboxAccessToken = env.EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 export const fetchCoordinatesData = async (
   nowCoords: {
@@ -14,9 +10,7 @@ export const fetchCoordinatesData = async (
     latitude: number;
     longitude: number;
   }
-) => {
-  const xp = new XMLParser();
-
+): Promise<Coords[]> => {
   const reqURL = `https://api.mapbox.com/directions/v5/mapbox/walking/${nowCoords.longitude},${nowCoords.latitude};${shopCoords.longitude},${shopCoords.latitude}?geometries=geojson&access_token=${EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN}`;
 
   try {
@@ -36,6 +30,7 @@ export const fetchCoordinatesData = async (
 
     return coordinates;
   } catch (error) {
-    return error;
+    console.log(error);
+    return [];
   }
 };

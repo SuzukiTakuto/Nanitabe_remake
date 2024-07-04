@@ -31,16 +31,18 @@ const index = () => {
 
   useEffect(() => {
     const fetchDirection = async () => {
-      if (shop) {
-        try {
-          const coords: Coords[] = (await fetchCoordinatesData(startCoords, {
-            longitude: shop?.lng,
-            latitude: shop?.lat,
-          })) as Coords[];
-          setDirectionsCoords(coords);
-        } catch (error) {
-          Alert.alert("エラー", "経路情報の取得に失敗しました");
+      if (!shop) return;
+      try {
+        const coords: Coords[] = await fetchCoordinatesData(startCoords, {
+          longitude: shop?.lng,
+          latitude: shop?.lat,
+        });
+        if (coords.length === 0) {
+          throw new Error("経路情報の取得に失敗しました");
         }
+        setDirectionsCoords(coords);
+      } catch (error) {
+        Alert.alert("エラー", "経路情報の取得に失敗しました");
       }
     };
 

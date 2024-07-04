@@ -1,7 +1,6 @@
 import { StationData } from "../type";
 
 export const fetchStation = async (stationName: string) => {
-  console.log(stationName);
   const reqURL = `https://express.heartrails.com/api/json?method=getStations&name=${stationName}`;
 
   const res = await fetch(reqURL);
