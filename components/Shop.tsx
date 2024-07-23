@@ -1,4 +1,4 @@
-import { View, Text, Image, Linking } from "react-native";
+import { View, Text, Image, Linking, TouchableOpacity } from "react-native";
 import React from "react";
 import { HotpepperDataType } from "@/type";
 import Button from "./Button";
@@ -36,20 +36,26 @@ const Shop = (props: HotpepperDataType) => {
       </View>
 
       <View className="justify-center items-center">
-        <Button
-          title="ホットペッパーで見る"
-          containerStyle="w-[230px] py-2 rounded-2xl m-2"
+        <TouchableOpacity
+          className="w-[230px] py-2 rounded-2xl m-2 border-[1px] border-[#6750A4]"
           onPress={() => {
             goHtpepper();
           }}
-        />
-        <Button
-          title="最初に戻る"
-          containerStyle="w-[230px] py-2 rounded-2xl m-2"
+        >
+          <Text className="font-mpregular text-[#6750A4] text-center">
+            ホットペッパーで見る
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          className="w-[230px] py-2 rounded-2xl m-2 border-[1px] border-[#6750A4]"
           onPress={() => {
             router.push("/");
           }}
-        />
+        >
+          <Text className="font-mpregular text-[#6750A4] text-center">
+            最初に戻る
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
