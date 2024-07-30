@@ -17,6 +17,7 @@ import { fetchSurroundingData } from "@/lib/hotpepper";
 import { fetchStation } from "@/lib/express";
 import { StationData } from "@/type";
 import DuplicateStationSelectionModal from "@/components/DuplicateStationSelectionModal";
+import Spinner from "@/components/Spinner";
 
 const index = () => {
   const [priceSetting, setPriceSetting] = useRecoilState(priceSettingState);
@@ -26,6 +27,7 @@ const index = () => {
   const [nowLocation, setNowLocation] = useRecoilState(nowLocationState);
   const [startCoords, setStartCoords] = useRecoilState(startCoordsState);
   const [candidateStations, setCandidateStations] = useState<StationData[]>([]); //複数の駅がある場合に各駅の情報を格納
+  const [isLoading, setIsLoading] = useState(false);
 
   // 「別なところ」が押された時にステート変更
   const nowPlace = () => setLocation("now");
@@ -40,42 +42,52 @@ const index = () => {
       return;
     }
 
-    if (location === "another") {
-      // 「〇〇駅」と入力された場合に「駅」を削除
-      const parsedStationName = stationName.endsWith("駅")
-        ? stationName.split("駅")[0]
-        : stationName;
-      const stationsData = await fetchStation(parsedStationName);
+    setIsLoading(true);
 
-      if (stationsData.length === 0) {
-        Alert.alert("エラー", "駅名が見つかりませんでした");
-        return;
-      } else if (stationsData.length > 1) {
-        setCandidateStations(stationsData);
-        return;
+    try {
+      if (location === "another") {
+        // 「〇〇駅」と入力された場合に「駅」を削除
+        const parsedStationName = stationName.endsWith("駅")
+          ? stationName.split("駅")[0]
+          : stationName;
+        const stationsData = await fetchStation(parsedStationName);
+
+        if (stationsData.length === 0) {
+          Alert.alert("エラー", "駅名が見つかりませんでした");
+          return;
+        } else if (stationsData.length > 1) {
+          setCandidateStations(stationsData);
+          return;
+        } else {
+          const coords = {
+            latitude: stationsData[0].y,
+            longitude: stationsData[0].x,
+          };
+          setStartCoords(coords);
+          await getStationSurroundingShops(stationsData);
+        }
       } else {
+        // 現在地が選択された場合
         const coords = {
-          latitude: stationsData[0].y,
-          longitude: stationsData[0].x,
+          latitude: nowLocation.coords.latitude,
+          longitude: nowLocation.coords.longitude,
         };
         setStartCoords(coords);
-        await getStationSurroundingShops(stationsData);
+        const data = await fetchSurroundingData(priceSetting, coords);
+        setHotpepperData(data);
       }
-    } else {
-      // 現在地が選択された場合
-      const coords = {
-        latitude: nowLocation.coords.latitude,
-        longitude: nowLocation.coords.longitude,
-      };
-      setStartCoords(coords);
-      const data = await fetchSurroundingData(priceSetting, coords);
-      setHotpepperData(data);
+      router.push("/(map)");
+    } catch (error) {
+      Alert.alert("エラー", "データ取得中にエラーが発生しました");
+    } finally {
+      setIsLoading(false);
     }
-    router.push("/(map)");
   };
 
   // 同名の駅が複数ある場合の処理
   const decisionTargetStation = async (index: number) => {
+    setCandidateStations([]);
+    setIsLoading(true);
     const targetStation = candidateStations[index];
     const coords = {
       latitude: targetStation.y,
@@ -85,6 +97,7 @@ const index = () => {
 
     const data = await fetchSurroundingData(priceSetting, coords);
     setHotpepperData(data);
+    setIsLoading(false);
 
     router.push("/(map)");
   };
@@ -99,9 +112,9 @@ const index = () => {
 
   return (
     <View className="relative w-full h-full">
-      {candidateStations.length > 1 && (
-        <View className="modal-overlay fixed w-full h-full bg-black/40 z-10"></View>
-      )}
+      {candidateStations.length > 1 || isLoading ? (
+        <View className="modal-overlay fixed w-full h-full bg-black/70 z-10"></View>
+      ) : null}
       <SafeAreaView className="absolute h-full w-full bg-primary">
         <View className="mx-14 justify-center h-full">
           <View className="mb-2">
@@ -182,6 +195,11 @@ const index = () => {
             stations={candidateStations}
             select={decisionTargetStation}
           />
+        </View>
+      )}
+      {isLoading && (
+        <View className="absolute z-20 left-[45%] top-[50%]">
+          <Spinner />
         </View>
       )}
     </View>
