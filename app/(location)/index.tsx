@@ -1,5 +1,5 @@
 import { View, Text, Alert } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Button from "@/components/Button";
 import InputField from "@/components/InputField";
@@ -18,6 +18,7 @@ import { fetchStation } from "@/lib/express";
 import { StationData } from "@/type";
 import DuplicateStationSelectionModal from "@/components/DuplicateStationSelectionModal";
 import Spinner from "@/components/Spinner";
+import { useLocation } from "@/hooks/useLocation";
 
 const index = () => {
   const [priceSetting, setPriceSetting] = useRecoilState(priceSettingState);
@@ -28,6 +29,8 @@ const index = () => {
   const [startCoords, setStartCoords] = useRecoilState(startCoordsState);
   const [candidateStations, setCandidateStations] = useState<StationData[]>([]); //複数の駅がある場合に各駅の情報を格納
   const [isLoading, setIsLoading] = useState(false);
+
+  let l = useLocation();
 
   // 「別なところ」が押された時にステート変更
   const nowPlace = () => setLocation("now");

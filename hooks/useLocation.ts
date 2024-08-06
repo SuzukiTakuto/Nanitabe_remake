@@ -24,6 +24,7 @@ export const useLocation = () => {
           distanceInterval: 2, // 更新するための移動距離（メートル）
         },
         (newLocation) => {
+          console.log(newLocation);
           setLocation(newLocation);
         }
       );
