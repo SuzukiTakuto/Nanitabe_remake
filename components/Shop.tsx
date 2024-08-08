@@ -2,7 +2,7 @@ import { View, Text, Image, Linking, TouchableOpacity } from "react-native";
 import React from "react";
 import { HotpepperDataType } from "@/type";
 import Button from "./Button";
-import { router } from "expo-router";
+import { Link, router } from "expo-router";
 
 const Shop = (props: HotpepperDataType) => {
   const { name, photo, budget, urls } = props;
@@ -49,7 +49,7 @@ const Shop = (props: HotpepperDataType) => {
         <TouchableOpacity
           className="w-[230px] py-2 rounded-2xl m-2 border-[1px] border-[#6750A4]"
           onPress={() => {
-            router.push("/");
+            router.dismissAll();
           }}
         >
           <Text className="font-mpregular text-[#6750A4] text-center">
