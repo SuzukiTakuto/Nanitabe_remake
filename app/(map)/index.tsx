@@ -14,6 +14,7 @@ import { Coords, HotpepperDataType } from "@/type";
 import Shop from "@/components/Shop";
 import { fetchCoordinatesData } from "@/lib/direction";
 import images from "@/lib/images";
+import NoShop from "@/components/NoShop";
 
 const index = () => {
   const [hotpepperData, setHotpepperData] = useRecoilState(hotpepperDataState);
@@ -126,9 +127,13 @@ const index = () => {
           </View>
         )}
       </MapView>
-      {shop !== undefined && (
+      {shop !== undefined ? (
         <View className="absolute bottom-16 left-0 right-0 flex items-center">
           <Shop {...shop} />
+        </View>
+      ) : (
+        <View className="absolute bottom-16 left-0 right-0 flex items-center">
+          <NoShop />
         </View>
       )}
 
