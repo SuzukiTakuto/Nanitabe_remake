@@ -212,7 +212,7 @@ const index = () => {
         </View>
       )}
       {isLoading && (
-        <View className="absolute z-20 left-[45%] top-[50%]">
+        <View className="absolute z-20 left-[42%] top-[50%]">
           <Spinner />
         </View>
       )}
