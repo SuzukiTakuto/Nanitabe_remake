@@ -71,8 +71,8 @@ const index = () => {
       <MapView
         className="w-full h-full"
         region={{
-          latitude: shop !== undefined ? shop.lat : 35.6,
-          longitude: shop !== undefined ? shop.lng : 139.6917,
+          latitude: shop !== undefined ? shop.lat : startCoords.latitude,
+          longitude: shop !== undefined ? shop.lng : startCoords.longitude,
           latitudeDelta: 0.02,
           longitudeDelta: 0.02,
         }}
