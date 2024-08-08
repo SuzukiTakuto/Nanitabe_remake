@@ -12,10 +12,10 @@ export const useLocation = () => {
     const startLocationUpdates = async () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
 
-      if (status !== "granted") {
-        Alert.alert("Error", "Permission to access location was denied");
-        return;
-      }
+      // if (status !== "granted") {
+      //   Alert.alert("Error", "Permission to access location was denied");
+      //   return;
+      // }
 
       locationSubscription = await Location.watchPositionAsync(
         {
@@ -24,7 +24,6 @@ export const useLocation = () => {
           distanceInterval: 2, // 更新するための移動距離（メートル）
         },
         (newLocation) => {
-          console.log(newLocation);
           setLocation(newLocation);
         }
       );

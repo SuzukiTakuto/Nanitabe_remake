@@ -1,6 +1,7 @@
 import { View, Text, Alert, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import MapView, { Marker, Region, Polyline } from "react-native-maps";
+import * as Location from "expo-location";
 import { useRecoilState } from "recoil";
 import {
   hotpepperDataState,
@@ -21,6 +22,21 @@ const index = () => {
   const [location, setLocation] = useRecoilState(locationState);
   const [shop, setShop] = useState<HotpepperDataType>();
   const [directionsCoords, setDirectionsCoords] = useState<Coords[]>([]);
+  const [locationPermissionStatus, setLocationPermissionStatus] =
+    useState(true);
+
+  useEffect(() => {
+    const confirmationForegroundPermission = async () => {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+
+      if (status !== "granted") {
+        Alert.alert("位置情報がオンになっていないため、現在地が表示されません");
+        setLocationPermissionStatus(false);
+        return;
+      }
+    };
+    confirmationForegroundPermission();
+  }, []);
 
   useEffect(() => {
     if (hotpepperData) {
@@ -60,13 +76,15 @@ const index = () => {
           longitudeDelta: 0.02,
         }}
       >
-        <Marker
-          coordinate={{
-            latitude: nowLocation.coords.latitude,
-            longitude: nowLocation.coords.longitude,
-          }}
-          image={images.gps}
-        />
+        {locationPermissionStatus && (
+          <Marker
+            coordinate={{
+              latitude: nowLocation.coords.latitude,
+              longitude: nowLocation.coords.longitude,
+            }}
+            image={images.gps}
+          />
+        )}
         {shop !== undefined && directionsCoords.length > 0 && (
           <View>
             <Marker

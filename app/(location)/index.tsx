@@ -1,6 +1,7 @@
 import { View, Text, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import * as Location from "expo-location";
 import Button from "@/components/Button";
 import InputField from "@/components/InputField";
 import { useRecoilState } from "recoil";
@@ -32,11 +33,21 @@ const index = () => {
 
   let l = useLocation();
 
-  // 「別なところ」が押された時にステート変更
-  const nowPlace = () => setLocation("now");
-
   // 「今いるところ」が押された時にステート変更
-  const anotherPlace = () => setLocation("another");
+  const nowPlace = async () => {
+    const { status } = await Location.requestForegroundPermissionsAsync();
+
+    if (status !== "granted") {
+      Alert.alert("位置情報をオンにしてください");
+      return;
+    }
+    setLocation("now");
+  };
+
+  // 「別なところ」が押された時にステート変更
+  const anotherPlace = () => {
+    setLocation("another");
+  };
 
   // 決定ボタンが押された時の処理
   const decision = async () => {
