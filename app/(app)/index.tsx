@@ -11,8 +11,8 @@ const index = () => {
   const [priceSetting, setPriceSetting] = useRecoilState(priceSettingState);
 
   const onPress = () => {
-    if (priceSetting === 0) {
-      Alert.alert("未入力", "1円以上の金額を入力してください");
+    if (priceSetting < 500) {
+      Alert.alert("未入力", "500円以上の金額を入力してください");
       return;
     }
     router.push("/(location)");
