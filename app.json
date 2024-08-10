@@ -18,9 +18,7 @@
         "NSLocationAlwaysAndWhenInUseUsageDescription": "現在地の近くのお店を探すために位置情報は利用されます。",
         "NSLocationAlwaysUsageDescription": "現在地の近くのお店を探すために位置情報は利用されます。",
         "NSLocationWhenInUseUsageDescription": "現在地の近くのお店を探すために位置情報は利用されます。",
-        "UIBackgroundModes": [
-          "location"
-        ]
+        "UIBackgroundModes": ["location"]
       },
       "bundleIdentifier": "com.ttaktt.Nanitabe"
     },
@@ -45,9 +43,9 @@
       [
         "expo-location",
         {
-          "locationAlwaysAndWhenInUsePermission": "何食に位置情報の使用を許可しますか？",
-          "locationAlwaysPermission": "何食に位置情報の使用を許可しますか？",
-          "locationWhenInUsePermission": "何食に位置情報の使用を許可しますか？"
+          "locationAlwaysAndWhenInUsePermission": "何食は周辺のお店を探し、現在地からの経路を取得するために位置情報を使用します。位置情報の使用を許可しますか？",
+          "locationAlwaysPermission": "何食は周辺のお店を探し、現在地からの経路を取得するために位置情報を使用します。位置情報の使用を許可しますか？",
+          "locationWhenInUsePermission": "何食は周辺のお店を探し、現在地からの経路を取得するために位置情報を使用します。位置情報の使用を許可しますか？"
         }
       ]
     ],
