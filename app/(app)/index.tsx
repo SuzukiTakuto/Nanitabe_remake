@@ -26,7 +26,7 @@ const index = () => {
             いくらくらいのお店?
           </Text>
           <InputField
-            placeholder="1000"
+            placeholder="例: 1000"
             keyboardType="numeric"
             handleChange={(e) => setPriceSetting(Number(e))}
           />
