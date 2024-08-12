@@ -44,11 +44,11 @@
       <true/>
     </dict>
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>何食に位置情報の使用を許可しますか？</string>
+    <string>現在地の近くのお店を探すために位置情報は利用されます。</string>
     <key>NSLocationAlwaysUsageDescription</key>
-    <string>何食に位置情報の使用を許可しますか？</string>
+    <string>現在地の近くのお店を探すために位置情報は利用されます。</string>
     <key>NSLocationWhenInUseUsageDescription</key>
-    <string>何食に位置情報の使用を許可しますか？</string>
+    <string>現在地の近くのお店を探すために位置情報は利用されます。</string>
     <key>NSUserActivityTypes</key>
     <array>
       <string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>
