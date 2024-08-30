@@ -129,10 +129,12 @@ const index = () => {
       </MapView>
       {shop !== undefined ? (
         <View className="absolute bottom-16 left-0 right-0 flex items-center">
+          <Text>{hotpepperData.toString()}</Text>
           <Shop {...shop} />
         </View>
       ) : (
         <View className="absolute bottom-16 left-0 right-0 flex items-center">
+          <Text>{hotpepperData.toString()}</Text>
           <NoShop />
         </View>
       )}
