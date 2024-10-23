@@ -44,13 +44,11 @@
       <true/>
       <key>NSExceptionDomains</key>
       <dict>
-          <key>webservice.recruit.co.jp</key>
-          <dict>
-              <key>NSExceptionAllowsInsecureHTTPLoads</key>
-              <true/>
-              <key>NSIncludesSubdomains</key>
-              <true/>
-          </dict>
+        <key>localhost</key>
+        <dict>
+          <key>NSExceptionAllowsInsecureHTTPLoads</key>
+          <true/>
+        </dict>
       </dict>
     </dict>
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>

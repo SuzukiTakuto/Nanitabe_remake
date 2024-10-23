@@ -10,7 +10,7 @@ export const fetchSurroundingData = async (
 ) => {
   const xp = new XMLParser();
 
-  const reqURL = `http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=${process.env.EXPO_PUBLIC_HOTPEPPER_API_KEY}&range=2&count=100&lat=${coords.latitude}&lng=${coords.longitude}`;
+  const reqURL = `https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=${process.env.EXPO_PUBLIC_HOTPEPPER_API_KEY}&range=2&count=100&lat=${coords.latitude}&lng=${coords.longitude}`;
 
   try {
     const res = await fetch(reqURL);
@@ -36,7 +36,7 @@ export const fetchStationSurroundingData = async (
 ) => {
   const xp = new XMLParser();
 
-  const reqURL = `http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=${process.env.EXPO_PUBLIC_HOTPEPPER_API_KEY}&range=2&count=100&keyword=${station}`;
+  const reqURL = `https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=${process.env.EXPO_PUBLIC_HOTPEPPER_API_KEY}&range=2&count=100&keyword=${station}`;
 
   try {
     const res = await fetch(reqURL);

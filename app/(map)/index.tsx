@@ -96,19 +96,6 @@ const index = () => {
             />
             {directionsCoords.length > 0 && (
               <View>
-                {location === "now" && (
-                  <Polyline
-                    coordinates={[
-                      nowLocation.coords,
-                      {
-                        latitude: directionsCoords[0].latitude,
-                        longitude: directionsCoords[0].longitude,
-                      },
-                    ]}
-                    strokeColor="#4620AA"
-                    strokeWidth={6}
-                  />
-                )}
                 <Polyline
                   coordinates={directionsCoords}
                   strokeColor="#4620AA"
@@ -129,12 +116,10 @@ const index = () => {
       </MapView>
       {shop !== undefined ? (
         <View className="absolute bottom-16 left-0 right-0 flex items-center">
-          <Text>{hotpepperData.toString()}</Text>
           <Shop {...shop} />
         </View>
       ) : (
         <View className="absolute bottom-16 left-0 right-0 flex items-center">
-          <Text>{hotpepperData.toString()}</Text>
           <NoShop />
         </View>
       )}

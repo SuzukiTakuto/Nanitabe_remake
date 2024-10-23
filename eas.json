@@ -8,7 +8,11 @@
       "distribution": "internal"
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_HOTPEPPER_API_KEY": "e28772eb2e63173c",
+        "EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN": "pk.eyJ1IjoidGFrdCIsImEiOiJjbHdkcWUyYWUxYmdqMmttbjdiN2FsYzN6In0.0Tw968MO8Al0f6tVxn0ycg"
+      }
     },
     "production": {
       "env": {

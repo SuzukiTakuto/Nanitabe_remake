@@ -12,11 +12,6 @@ export const useLocation = () => {
     const startLocationUpdates = async () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
 
-      // if (status !== "granted") {
-      //   Alert.alert("Error", "Permission to access location was denied");
-      //   return;
-      // }
-
       locationSubscription = await Location.watchPositionAsync(
         {
           accuracy: Location.Accuracy.High,

@@ -10,7 +10,7 @@ export const fetchCoordinatesData = async (
     longitude: number;
   }
 ): Promise<Coords[]> => {
-  const reqURL = `https://api.mapbox.com/directions/v5/mapbox/walking/${nowCoords.longitude},${nowCoords.latitude};${shopCoords.longitude},${shopCoords.latitude}?geometries=geojson&access_token=${process.env.EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN}`;
+  const reqURL = `https://api.mapbox.com/directions/v5/mapbox/walking/${nowCoords.longitude},${nowCoords.latitude};${shopCoords.longitude},${shopCoords.latitude}?geometries=geojson&walkway_bias=1&access_token=${process.env.EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN}`;
 
   try {
     const res = await fetch(reqURL);
